@@ -85,3 +85,56 @@ text.addEventListener("input", (e) => {
     text.value = "";
   }
 });
+
+/* -------------------------------------------------
+    PART 2
+--------------------------------------------------*/
+
+// Time interval
+const timeInterval = setInterval(updateTime, 1000);
+
+// Update time every second
+function updateTime() {
+  time--;
+  updateTimeDisplay();
+
+  if (time === 0) {
+    clearInterval(timeInterval);
+    gameOver();
+  }
+}
+
+function updateTimeDisplay() {
+  timeEl.innerHTML = `${time}s`;
+}
+
+// Game over
+function gameOver() {
+  endgameEl.innerHTML = `
+    <h1>Time Ran Out!</h1>
+    <p>Your final score: ${score}</p>
+    <button onclick="location.reload()">Restart</button>
+  `;
+
+  // Show container
+  endgameEl.style.display = "flex";
+}
+
+/* -------------------------------------------------
+    SETTINGS TOGGLE
+--------------------------------------------------*/
+
+settingsBtn.addEventListener("click", () => {
+  settings.classList.toggle("hide");
+});
+
+// Save difficulty to localStorage
+difficultySelect.addEventListener("change", (e) => {
+  difficulty = e.target.value;
+  localStorage.setItem("difficulty", difficulty);
+});
+
+/* -------------------------------------------------
+    START GAME
+--------------------------------------------------*/
+addWordToDOM();
